@@ -1,4 +1,4 @@
-# Cine Guerreiro — Angular para GitHub Pages
+# Cine Guerreiro
 
 Landing page mobile first e responsiva do **Cine Guerreiro Sistema P2P**, desenvolvida em Angular e preparada para publicação automática no GitHub Pages.
 
