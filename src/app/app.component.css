@@ -896,67 +896,151 @@ h2 {
   z-index: 1200;
   right: 16px;
   bottom: max(18px, env(safe-area-inset-bottom));
+
   width: 58px;
   height: 58px;
+
   border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  background: var(--success);
-  box-shadow: 0 14px 34px rgba(37, 211, 102, 0.34);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+  background: var(--success, #25d366);
+
+  box-shadow:
+    0 14px 34px rgba(37, 211, 102, 0.34);
+
   text-decoration: none;
-  transition: transform 0.2s ease;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  isolation: isolate;
 }
 
 .whatsapp-float:hover {
   transform: translateY(-4px) scale(1.02);
+
+  box-shadow:
+    0 18px 40px rgba(37, 211, 102, 0.42);
 }
 
-.whatsapp-float svg {
+/* Círculo exclusivo do ícone */
+.whatsapp-icon {
   position: relative;
   z-index: 2;
-  width: 31px;
+
+  flex: 0 0 42px;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(255, 255, 255, 0.13);
+}
+
+/* Centralização do símbolo */
+.whatsapp-icon svg {
+  width: 28px;
+  height: 28px;
+
+  display: block;
+
   fill: currentColor;
 }
 
+/* Animação ao redor do círculo */
 .whatsapp-pulse {
   position: absolute;
+  z-index: 0;
+
   inset: 0;
-  border-radius: inherit;
-  background: var(--success);
-  animation: pulse 2s ease-out infinite;
+
+  border-radius: 50%;
+
+  background: var(--success, #25d366);
+
+  pointer-events: none;
+
+  animation: whatsapp-pulse-animation 2s ease-out infinite;
 }
 
 .whatsapp-label {
+  position: relative;
+  z-index: 2;
+
   display: none;
+
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.55; }
-  85%, 100% { transform: scale(1.55); opacity: 0; }
+/* Animação */
+@keyframes whatsapp-pulse-animation {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  85%,
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
 }
 
-@keyframes spin {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+/* Tablet e computador */
+@media (min-width: 760px) {
+  .whatsapp-float {
+    right: 24px;
+
+    width: auto;
+    min-width: 162px;
+    height: 58px;
+
+    padding: 0 18px 0 8px;
+
+    border-radius: 999px;
+
+    justify-content: flex-start;
+
+    gap: 9px;
+  }
+
+  .whatsapp-icon {
+    flex: 0 0 42px;
+
+    width: 42px;
+    height: 42px;
+  }
+
+  .whatsapp-pulse {
+    inset: 8px auto 8px 8px;
+
+    width: 42px;
+    height: 42px;
+  }
+
+  .whatsapp-label {
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
-@media (min-width: 560px) {
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .hero-actions .button {
-    min-width: 190px;
-  }
-
-  .feature-grid,
-  .steps-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .plans-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+/* Reduz animações conforme configuração do usuário */
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float,
+  .whatsapp-pulse {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
